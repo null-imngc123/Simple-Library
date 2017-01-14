@@ -63,7 +63,7 @@ show : function(){
 		run(){
 			try{
 	data.layout.setOrientation(1);
-	data.layout.setOrientation(1);
+	data.layout2.setOrientation(1);
 	data.button.setWidth(80 * dp);
 	data.Dbutton.setWidth(80 * dp);
 	data.layout.setGravity(Gravity.RIGHT);
