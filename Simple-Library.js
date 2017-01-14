@@ -57,6 +57,54 @@ setBackgroundDrawable : function(color){
 	this.button.setBackgroundDrawable(color);
 	this.Dbutton.setBackgroundDrawable(color);
 },
+animation : {
+	Type : {
+		START : "start",
+		STOP : "stop",
+		SCALE : "scale",
+		TRANSLATE : "translate",
+		ROTATE : "rotate"
+	}
+},
+setAnimation : function(type, args){
+//args = Object
+	ctx.runOnUiThread(new java.lang.Runnable(){
+		run: function() {
+			try {
+				if(type=="start"){
+					var Animation = new android.view.animation.AlphaAnimation(0, 1); 
+					Animation.setInterpolator(new android.view.animation.DecelerateInterpolator());
+					Animation.setDuration(arg.duration);
+					Animation.setStartOffset(args.startDuration);
+					args.view.setAnimation(Animation); 
+				}else if(type=="stop"){
+					var Animation = new android.view.animation.AlphaAnimation(1, 0); 
+					Animation.setInterpolator(new android.view.animation.DecelerateInterpolator());
+					Animation.setDuration(arg.duration);
+					Animation.setStartOffset(args.startDuration);
+				}else if(type=="scale"){
+					var anim = new android.view.animation.ScaleAnimation(args.fromX, args.toX, args.fromY, args.toY);
+					anim.setDuration(args.duration);
+					args.view..setAnimation(anim);
+				}else if(type=="translate"){
+					var anim = new android.view.animation.TranslateAnimation(args.fromX, args.toX, args.fromY, args.toY);
+					anim.setDuration(args.duration);
+					args.view.setAnimation(anim);
+				}else if(type=="rotate"){
+					var anim = new android.view.animation.RotateAnimation(args.fromD, args.toD);
+					anim.setDuration(args.duration);
+					args.view.setAnimation(anim);
+				}else{
+					android.widget.Toast.makeText(ctx, "Adding to later", android.widget.Toast.LENGTH_LONG);
+				}
+			} catch(err) {
+				err = "Error: "+err+"\Line: "+err.lineNumber;
+				clientMessage(err);
+				print(err);
+			}
+		}
+	});
+},
 show : function(){
 	var data = this;
 	ctx.runOnUiThread(new java.lang.Runnable({
